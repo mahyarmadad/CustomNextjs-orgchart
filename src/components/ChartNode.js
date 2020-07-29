@@ -30,10 +30,10 @@ const ChartNode = ({
   const node = useRef();
 
   const [isChildrenCollapsed, setIsChildrenCollapsed] = useState(false);
-  const [topEdgeExpanded, setTopEdgeExpanded] = useState();
-  const [rightEdgeExpanded, setRightEdgeExpanded] = useState();
+  // const [topEdgeExpanded, setTopEdgeExpanded] = useState();
+  // const [rightEdgeExpanded, setRightEdgeExpanded] = useState();
   const [bottomEdgeExpanded, setBottomEdgeExpanded] = useState();
-  const [leftEdgeExpanded, setLeftEdgeExpanded] = useState();
+  // const [leftEdgeExpanded, setLeftEdgeExpanded] = useState();
   const [allowedDrop, setAllowedDrop] = useState(false);
   const [selected, setSelected] = useState(false);
 
@@ -84,29 +84,33 @@ const ChartNode = ({
     };
   }, [multipleSelect, datasource]);
 
-  const addArrows = (e) => {
-    const node = e.target.closest("li");
-    const parent = node.parentNode.closest("li");
-    const isAncestorsCollapsed =
-      node && parent
-        ? parent.firstChild.classList.contains("hidden")
-        : undefined;
-    const isSiblingsCollapsed = Array.from(
-      node.parentNode.children
-    ).some((item) => item.classList.contains("hidden"));
+  // const addArrows = (e) => {
+  //   const node = e.target.closest("li");
+  //   const parent = node.parentNode.closest("li");
+  //   const isAncestorsCollapsed =
+  //     node && parent
+  //       ? parent.firstChild.classList.contains("hidden")
+  //       : undefined;
+  //   const isSiblingsCollapsed = Array.from(
+  //     node.parentNode.children
+  //   ).some((item) => item.classList.contains("hidden"));
 
-    setTopEdgeExpanded(!isAncestorsCollapsed);
-    setRightEdgeExpanded(!isSiblingsCollapsed);
-    setLeftEdgeExpanded(!isSiblingsCollapsed);
+  //   setTopEdgeExpanded(!isAncestorsCollapsed);
+  //   setRightEdgeExpanded(!isSiblingsCollapsed);
+  //   setLeftEdgeExpanded(!isSiblingsCollapsed);
+  //   setBottomEdgeExpanded(!isChildrenCollapsed);
+  // };
+
+  useEffect(() => {
     setBottomEdgeExpanded(!isChildrenCollapsed);
-  };
+  }, [isChildrenCollapsed]);
 
-  const removeArrows = () => {
-    setTopEdgeExpanded(undefined);
-    setRightEdgeExpanded(undefined);
-    setBottomEdgeExpanded(undefined);
-    setLeftEdgeExpanded(undefined);
-  };
+  // const removeArrows = () => {
+  //   setTopEdgeExpanded(undefined);
+  //   setRightEdgeExpanded(undefined);
+  //   setBottomEdgeExpanded(undefined);
+  //   setLeftEdgeExpanded(undefined);
+  // };
 
   const toggleAncestors = (actionNode) => {
     let node = actionNode.parentNode.closest("li");
@@ -141,11 +145,11 @@ const ChartNode = ({
     }
   };
 
-  const topEdgeClickHandler = (e) => {
-    e.stopPropagation();
-    setTopEdgeExpanded(!topEdgeExpanded);
-    toggleAncestors(e.target.closest("li"));
-  };
+  // const topEdgeClickHandler = (e) => {
+  //   e.stopPropagation();
+  //   setTopEdgeExpanded(!topEdgeExpanded);
+  //   toggleAncestors(e.target.closest("li"));
+  // };
 
   const bottomEdgeClickHandler = (e) => {
     e.stopPropagation();
@@ -186,12 +190,12 @@ const ChartNode = ({
     }
   };
 
-  const hEdgeClickHandler = (e) => {
-    e.stopPropagation();
-    setLeftEdgeExpanded(!leftEdgeExpanded);
-    setRightEdgeExpanded(!rightEdgeExpanded);
-    toggleSiblings(e.target.closest("li"));
-  };
+  // const hEdgeClickHandler = (e) => {
+  //   e.stopPropagation();
+  //   setLeftEdgeExpanded(!leftEdgeExpanded);
+  //   setRightEdgeExpanded(!rightEdgeExpanded);
+  //   toggleSiblings(e.target.closest("li"));
+  // };
 
   const filterAllowedDropNodes = (id) => {
     dragNodeService.sendDragInfo(id);
@@ -246,8 +250,8 @@ const ChartNode = ({
         onDragOver={dragoverHandler}
         onDragEnd={dragendHandler}
         onDrop={dropHandler}
-        onMouseEnter={addArrows}
-        onMouseLeave={removeArrows}
+        // onMouseEnter={addArrows}
+        // onMouseLeave={removeArrows}
       >
         {NodeTemplate ? (
           <NodeTemplate nodeData={datasource} />
@@ -263,7 +267,7 @@ const ChartNode = ({
             <div className="oc-content">{datasource.title}</div>
           </>
         )}
-        {collapsible &&
+        {/* {collapsible &&
           datasource.relationship &&
           datasource.relationship.charAt(0) === "1" && (
             <i
@@ -276,8 +280,8 @@ const ChartNode = ({
               }`}
               onClick={topEdgeClickHandler}
             />
-          )}
-        {collapsible &&
+          )} */}
+        {/* {collapsible &&
           datasource.relationship &&
           datasource.relationship.charAt(1) === "1" && (
             <>
@@ -302,7 +306,7 @@ const ChartNode = ({
                 onClick={hEdgeClickHandler}
               />
             </>
-          )}
+          )} */}
         {collapsible &&
           datasource.relationship &&
           datasource.relationship.charAt(2) === "1" && (
